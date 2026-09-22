@@ -1,161 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <!-- AITU Futsal | Assignment #1 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="AITU Futsal - Astana IT University futsal community">
-    <title>Leagues | AITU Futsal</title>
+    <title>AITU Futsal - Leagues</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-    <header class="site-header" id="main-header">
-        <div class="container navbar">
+    <div class="page-grid">
+        <header class="site-header">
             <a class="brand" href="index.html">
                 <img src="images/logo.jpg" alt="AITU Futsal logo">
                 <span>AITU FUTSAL</span>
             </a>
-            <nav aria-label="Main navigation">
-                <ul class="nav-menu">
-                    <li><a href="index.html" class="">Home</a></li>
-<li><a href="team.html" class="">Team</a></li>
-<li><a href="leagues.html" class="active">Leagues</a></li>
-<li><a href="events.html" class="">Events</a></li>
-<li><a href="gallery.html" class="">Gallery</a></li>
-<li><a href="join.html" class="">Join Us</a></li>
+            <nav>
+                <ul class="nav-list">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a href="leagues.html">Leagues</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="join.html">Join</a></li>
                 </ul>
             </nav>
-        </div>
-    </header>
+        </header>
 
-    
-<main>
-    <section class="page-banner">
-        <div class="container">
-            <span class="eyebrow">AITU Competition</span>
-            <h1>Gold & Silver Leagues</h1>
-            <p>Two internal leagues create a competitive futsal environment at AITU.</p>
-        </div>
-    </section>
+        <aside class="sidebar">
+            <h3>Leagues</h3>
+            <ol>
+                <li>Gold League</li>
+                <li>Silver League</li>
+            </ol>
+        </aside>
 
-    <section class="section">
-        <div class="container">
-            <div class="grid-2">
-                <article class="card league-card gold">
-                    <span class="badge">4 Teams</span>
-                    <h2>Gold League</h2>
-                    <p>
-                        The Gold League brings together the four strongest AITU futsal
-                        teams for high-level university competition.
-                    </p>
-                    <ul class="list">
-                        <li>Top 4 AITU teams</li>
-                        <li>Competitive league format</li>
-                        <li>Regular match schedule</li>
-                    </ul>
+        <main>
+            <h1>AITU Leagues</h1>
+            <p>AITU Futsal has two university leagues: Gold League and Silver League.</p>
+
+            <div class="card-row section">
+                <article class="card">
+                    <h2 style="color: #ffd700;">Gold League</h2>
+                    <p>The Gold League brings together the four strongest AITU futsal teams for high-level university competition.</p>
                 </article>
-
-                <article class="card league-card silver">
-                    <span class="badge">8 Teams</span>
-                    <h2>Silver League</h2>
-                    <p>
-                        The Silver League includes eight teams and gives more AITU
-                        students an opportunity to compete and develop.
-                    </p>
-                    <ul class="list">
-                        <li>8 AITU teams</li>
-                        <li>Regular league matches</li>
-                        <li>Development and competition</li>
-                    </ul>
+                <article class="card">
+                    <h2 style="color: #E5E9F0;">Silver League</h2>
+                    <p>The Silver League includes eight teams and gives more AITU students an opportunity to compete and develop.</p>
                 </article>
             </div>
-        </div>
-    </section>
 
-    <section class="section section-dark">
-        <div class="container">
-            <div class="section-title">
-                <span class="eyebrow">Current standings</span>
-                <h2>League Table</h2>
+            <section class="section">
+                <p style="text-transform: uppercase; letter-spacing: 1.5px; font-size: 0.85rem; color: #7edcff; margin-bottom: 4px; font-weight: 700;">CURRENT STANDINGS</p>
+                <h2 style="margin-top: 0;">League Table</h2>
                 <p>
-                    The following standings are presented from the provided AITU futsal
-                    league table.
+                    The following standings are presented from the provided AITU futsal league table.
                 </p>
-            </div>
 
-            <div style="overflow-x:auto;">
-                <table class="schedule-table">
-                    <thead>
-                        <tr>
-                            <th>Pos</th>
-                            <th>Club</th>
-                            <th>PL</th>
-                            <th>W</th>
-                            <th>D</th>
-                            <th>L</th>
-                            <th>GD</th>
-                            <th>PTS</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>1</td><td>ATK</td><td>6</td><td>5</td><td>1</td><td>0</td><td>34</td><td>16</td></tr>
-                        <tr><td>2</td><td>BATYS GANG</td><td>6</td><td>5</td><td>1</td><td>0</td><td>26</td><td>16</td></tr>
-                        <tr><td>3</td><td>PANDAS</td><td>6</td><td>4</td><td>2</td><td>0</td><td>37</td><td>14</td></tr>
-                        <tr><td>4</td><td>WILD WOLVES</td><td>6</td><td>4</td><td>0</td><td>2</td><td>15</td><td>12</td></tr>
-                        <tr><td>5</td><td>ALASH</td><td>7</td><td>2</td><td>1</td><td>4</td><td>-5</td><td>7</td></tr>
-                        <tr><td>6</td><td>CYBER ATTACK</td><td>7</td><td>1</td><td>1</td><td>5</td><td>-27</td><td>4</td></tr>
-                        <tr><td>7</td><td>FC AYA</td><td>7</td><td>0</td><td>1</td><td>6</td><td>-39</td><td>1</td></tr>
-                        <tr><td>8</td><td>TRIUMPH</td><td>7</td><td>0</td><td>1</td><td>6</td><td>-40</td><td>1</td></tr>
-                    </tbody>
-                </table>
-            </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Pos</th>
+                                <th>Club</th>
+                                <th>PL</th>
+                                <th>W</th>
+                                <th>D</th>
+                                <th>L</th>
+                                <th>GD</th>
+                                <th>PTS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>ATK</td>
+                                <td>6</td>
+                                <td>5</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>34</td>
+                                <td>16</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>BATYS GANG</td>
+                                <td>6</td>
+                                <td>5</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>26</td>
+                                <td>16</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>PANDAS</td>
+                                <td>6</td>
+                                <td>4</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>37</td>
+                                <td>14</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>WILD WOLVES</td>
+                                <td>6</td>
+                                <td>4</td>
+                                <td>0</td>
+                                <td>2</td>
+                                <td>15</td>
+                                <td>12</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>ALASH</td>
+                                <td>7</td>
+                                <td>2</td>
+                                <td>1</td>
+                                <td>4</td>
+                                <td>-5</td>
+                                <td>7</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>CYBER ATTACK</td>
+                                <td>7</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>5</td>
+                                <td>-27</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td>FC AYA</td>
+                                <td>7</td>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>6</td>
+                                <td>-39</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td>TRIUMPH</td>
+                                <td>7</td>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>6</td>
+                                <td>-40</td>
+                                <td>1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
 
-            <img class="standings-img" src="images/standings.jpg" alt="Provided AITU futsal league standings">
-        </div>
-    </section>
-
-    <section class="section">
-        <div class="container grid-2">
-            <div>
-                <span class="eyebrow">Match schedule</span>
-                <h2>Every Tuesday & Thursday</h2>
-                <p>
-                    AITU Futsal matches are held at the university's Cyber Arena
-                    from 18:00 to 20:00.
-                </p>
-            </div>
-
-            <div class="card">
-                <table class="schedule-table">
-                    <thead>
-                        <tr>
-                            <th>Day</th>
-                            <th>Time</th>
-                            <th>Activity</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Tuesday</td><td>18:00–20:00</td><td>League matches</td></tr>
-                        <tr><td>Thursday</td><td>18:00–20:00</td><td>League matches</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-</main>
-
-
-    <footer class="site-footer">
-        <div class="container footer-content">
-            <div>
-                <strong>AITU FUTSAL</strong>
-                <p>Astana IT University · Cyber Arena</p>
-            </div>
-            <div>
-                <p>Team members: <span class="highlight">Yerassyl · Shyngyskhan · Alibi</span></p>
-                <p>&copy; 2026 AITU Futsal</p>
-            </div>
-        </div>
-    </footer>
+        <footer>
+            <p><strong>Team members:</strong> Yerassyl · Shyngyskhan · Alibi</p>
+            <p>© 2026 AITU Futsal Club</p>
+        </footer>
+    </div>
 </body>
+
 </html>

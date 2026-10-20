@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- AITU Futsal | Assignment #3 — Media Queries + Bootstrap -->
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="AITU Futsal - Astana IT University futsal community">
     <title>Home | AITU Futsal</title>
-    <!-- TASK 3: Bootstrap 5.3 CDN -->
+    <!-- Bootstrap 5.3 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <!-- TASK 5: Bootstrap Navbar with hamburger -->
+    <!-- Bootstrap Navbar with hamburger -->
     <nav class="navbar navbar-expand-lg navbar-custom sticky-top" aria-label="Main navigation">
         <div class="container">
             <a class="navbar-brand" href="index.html">
@@ -44,7 +44,7 @@
         <!-- Hero -->
         <section class="hero">
             <div class="container">
-                <!-- TASK 3: Bootstrap Grid col-lg-6 -->
+                <!-- Bootstrap Grid col-lg-6 -->
                 <div class="row align-items-center g-4">
                     <div class="col-lg-6">
                         <span class="eyebrow">Astana IT University</span>
@@ -54,12 +54,12 @@
                             A student futsal project bringing together players, referees,
                             photographers and the SMM team.
                         </p>
-                        <!-- TASK 6: Bootstrap buttons + btn-group -->
+                        <!-- Bootstrap buttons + btn-group -->
                         <div class="d-flex flex-wrap gap-2 mb-3">
                             <a href="team.html" class="btn btn-aitu-primary btn-lg">Meet the Team</a>
                             <a href="join.html" class="btn btn-aitu-outline btn-lg">Join the Club</a>
                         </div>
-                        <!-- TASK 6: btn-group example -->
+                        <!-- btn-group example -->
                         <div class="btn-group" role="group" aria-label="Quick links">
                             <a href="events.html" class="btn btn-outline-info btn-sm">Events</a>
                             <a href="leagues.html" class="btn btn-outline-info btn-sm">Leagues</a>
@@ -67,14 +67,14 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <img src="images/league-match.jpg" alt="AITU Futsal match in progress"
+                        <img src="images/team-photo.jpg" alt="AITU Futsal match in progress"
                              class="feature-image">
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- TASK 1: Responsive Typography demo section -->
+        <!-- Responsive Typography demo section -->
         <section class="section">
             <div class="container">
                 <div class="text-center mb-5">
@@ -86,7 +86,7 @@
                     </p>
                 </div>
 
-                <!-- TASK 3: Bootstrap grid col-lg-3 col-md-6 + TASK 8: Bootstrap cards -->
+                <!-- Bootstrap grid col-lg-3 col-md-6 + TASK 8: Bootstrap cards -->
                 <div class="row g-4">
                     <div class="col-lg-3 col-md-6">
                         <div class="card card-custom text-center p-4">
@@ -133,7 +133,7 @@
             <div class="container">
                 <div class="row align-items-center g-4">
                     <div class="col-lg-6">
-                        <img class="feature-image" src="images/team-photo.jpg"
+                        <img class="feature-image" src="images/together-picture.jpg"
                              alt="AITU Futsal players standing together in the sports hall">
                     </div>
                     <div class="col-lg-6 ps-lg-5">
@@ -150,14 +150,14 @@
                             <li class="mb-2">⚡ Regular matches on Tuesday and Thursday</li>
                             <li class="mb-2">⚡ Special show matches for the university community</li>
                         </ul>
-                        <!-- TASK 4: Bootstrap spacing utilities -->
+                        <!-- Bootstrap spacing utilities -->
                         <a href="events.html" class="btn btn-aitu-primary mt-4">Explore Events</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- TASK 2: Three cards — pure CSS media query (no Bootstrap) -->
+        <!-- Three cards — pure CSS media query -->
         <section class="section">
             <div class="container">
                 <div class="text-center mb-5">
@@ -165,7 +165,7 @@
                     <h2 class="mt-2">AITU on the court</h2>
                     <p>Three pillars of the AITU Futsal community.</p>
                 </div>
-                <!-- Pure CSS 3-card layout for Task 2 -->
+                <!-- Pure CSS 3-card layout -->
                 <div class="card-row-3">
                     <div class="card-item">
                         <img src="images/AITU Jersey.jpg" alt="AITU futsal jersey"
@@ -193,7 +193,73 @@
             </div>
         </section>
 
+        <section class="section section-dark" aria-labelledby="interactive-title">
+            <div class="container">
+                <div class="interactive-panel text-center">
+                    <span class="eyebrow">JavaScript live features</span>
+                    <h2 id="interactive-title" class="mt-2">Matchday dashboard</h2>
+                    <p id="current-date-time" class="live-clock" aria-live="polite">Loading current date and time...</p>
+                    <div class="d-flex flex-wrap justify-content-center gap-2 mt-4">
+                        <button id="theme-switcher" type="button" class="btn btn-aitu-outline">Change background</button>
+                        <button id="open-contact-modal" type="button" class="btn btn-aitu-primary">Contact Us</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="faq-title">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <span class="eyebrow">Frequently asked questions</span>
+                    <h2 id="faq-title" class="mt-2">AITU Futsal FAQ</h2>
+                    <p>Click a question to reveal or hide its answer.</p>
+                </div>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-1">Who can join AITU Futsal?</button>
+                        <div class="faq-answer" id="faq-answer-1"><p>Any AITU student can apply as a player, referee, photographer, organizer or SMM team member.</p></div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-2">When and where are matches played?</button>
+                        <div class="faq-answer" id="faq-answer-2"><p>Regular league matches take place every Tuesday and Thursday from 18:00 to 20:00 at Cyber Arena.</p></div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-3">Do I need professional experience?</button>
+                        <div class="faq-answer" id="faq-answer-3"><p>No. The club welcomes motivated students with different skill levels and helps them find a suitable role.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
+
+    <div id="contact-modal" class="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title" hidden>
+        <div class="modal-card">
+            <button type="button" class="modal-close" aria-label="Close contact form">&times;</button>
+            <span class="eyebrow">Contact the club</span>
+            <h2 id="contact-modal-title" class="mt-2">Send us a message</h2>
+            <p>Ask about teams, schedules or ways to contribute.</p>
+            <form id="contact-form" novalidate>
+                <div class="mb-3">
+                    <label class="form-label" for="contact-name">Full Name</label>
+                    <input class="form-control" id="contact-name" type="text" minlength="2" required>
+                    <div class="invalid-feedback">Please enter your name.</div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="contact-email">Email Address</label>
+                    <input class="form-control" id="contact-email" type="email" required>
+                    <div class="invalid-feedback">Please enter a valid email.</div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="contact-message">Message</label>
+                    <textarea class="form-control" id="contact-message" rows="4" minlength="10" required></textarea>
+                    <div class="invalid-feedback">Please enter at least 10 characters.</div>
+                </div>
+                <button class="btn btn-aitu-primary w-100" type="submit">Send Message</button>
+                <p id="contact-status" class="form-status" aria-live="polite"></p>
+            </form>
+        </div>
+    </div>
 
     <footer class="site-footer">
         <div class="container">
@@ -212,5 +278,6 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

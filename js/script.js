@@ -15,7 +15,7 @@ function initClock() {
   const updateClock = () => {
     clock.textContent = new Intl.DateTimeFormat("en-US", {
       dateStyle: "long",
-      timeStyle: "medium"
+      timeStyle: "medium",
     }).format(new Date());
   };
 
@@ -27,7 +27,7 @@ function initThemeSwitcher() {
   const button = document.querySelector("#theme-switcher");
   if (!button) return;
 
-  const themes = ["theme-ocean", "theme-purple", "theme-emerald"];
+  const themes = ["theme-ocean", "theme-purple", "theme-emerald", "theme-white"];
   let themeIndex = 0;
 
   button.addEventListener("click", () => {

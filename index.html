@@ -34,6 +34,7 @@
                     <li class="nav-item"><a class="nav-link" href="events.html">Events</a></li>
                     <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
                     <li class="nav-item"><a class="nav-link" href="join.html">Join Us</a></li>
+                    <li class="nav-item"><button class="nav-link theme-toggle" type="button" aria-pressed="false">Day mode</button></li>
                 </ul>
             </div>
         </div>
@@ -200,8 +201,66 @@
                     <h2 id="interactive-title" class="mt-2">Matchday dashboard</h2>
                     <p id="current-date-time" class="live-clock" aria-live="polite">Loading current date and time...</p>
                     <div class="d-flex flex-wrap justify-content-center gap-2 mt-4">
-                        <button id="theme-switcher" type="button" class="btn btn-aitu-outline">Change background</button>
+                        <button type="button" class="btn btn-aitu-outline theme-toggle" aria-pressed="false">Switch to Day mode</button>
+                        <button id="sound-button" type="button" class="btn btn-aitu-outline">Play match whistle</button>
                         <button id="open-contact-modal" type="button" class="btn btn-aitu-primary">Contact Us</button>
+                    </div>
+                    <p id="dashboard-message" class="dashboard-message mt-3" aria-live="polite">Choose an action to update this dashboard.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="match-center-title">
+            <div class="container">
+                <div class="row align-items-end g-3 mb-4">
+                    <div class="col-lg-7">
+                        <span class="eyebrow">Built with arrays, objects and loops</span>
+                        <h2 id="match-center-title" class="mt-2">Interactive Match Center</h2>
+                        <p>Filter the schedule without reloading the page. Match cards are generated entirely by JavaScript.</p>
+                    </div>
+                    <div class="col-lg-5">
+                        <label class="form-label" for="language-selector">Interface language</label>
+                        <select id="language-selector" class="form-select">
+                            <option value="en">English</option>
+                            <option value="ru">Русский</option>
+                            <option value="kk">Қазақша</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-bar" role="group" aria-label="Filter matches by league">
+                    <button class="filter-button is-active" type="button" data-filter="all">All matches</button>
+                    <button class="filter-button" type="button" data-filter="gold">Gold League</button>
+                    <button class="filter-button" type="button" data-filter="silver">Silver League</button>
+                </div>
+                <div id="match-list" class="match-grid mt-4" aria-live="polite"></div>
+                <p id="match-count" class="match-count"></p>
+            </div>
+        </section>
+
+        <section class="section section-dark" aria-labelledby="story-title">
+            <div class="container">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-7">
+                        <span class="eyebrow">Attribute and content manipulation</span>
+                        <h2 id="story-title" class="mt-2">Inside a matchday</h2>
+                        <p>Every fixture starts long before kick-off: organizers prepare the court, referees check equipment, and media volunteers publish the line-ups.</p>
+                        <div id="extra-story" hidden>
+                            <p>After the final whistle, results are verified and added to the league table. This shared workflow lets players focus on the match while the community learns event management, design and teamwork.</p>
+                        </div>
+                        <button id="read-more-button" class="btn btn-aitu-outline mt-2" type="button" aria-expanded="false" aria-controls="extra-story">Read More</button>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="rating-card text-center">
+                            <h3>Rate the match experience</h3>
+                            <div id="rating-stars" class="rating-stars" role="radiogroup" aria-label="Match experience rating">
+                                <button type="button" data-rating="1" aria-label="1 star">★</button>
+                                <button type="button" data-rating="2" aria-label="2 stars">★</button>
+                                <button type="button" data-rating="3" aria-label="3 stars">★</button>
+                                <button type="button" data-rating="4" aria-label="4 stars">★</button>
+                                <button type="button" data-rating="5" aria-label="5 stars">★</button>
+                            </div>
+                            <p id="rating-message" aria-live="polite">No rating selected yet.</p>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -32,6 +32,7 @@
                     <li class="nav-item"><a class="nav-link" href="events.html">Events</a></li>
                     <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
                     <li class="nav-item"><a class="nav-link active" href="join.html">Join Us</a></li>
+                    <li class="nav-item"><button class="nav-link theme-toggle" type="button" aria-pressed="false">Day mode</button></li>
                 </ul>
             </div>
         </div>
@@ -131,14 +132,19 @@
                                     <div class="col-md-6">
                                         <label for="password" class="form-label">Password</label>
                                         <input type="password" class="form-control" id="password" name="password"
-                                               minlength="8" autocomplete="new-password" required>
-                                        <div class="field-error" data-error-for="password">Use at least 8 characters.</div>
+                                               minlength="8" maxlength="64"
+                                               pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9])\S{8,64}"
+                                               aria-describedby="password-help password-error"
+                                               autocomplete="new-password" required>
+                                        <div id="password-help" class="password-help">8-64 characters with uppercase, lowercase, number and special character. Spaces, copying and pasting are not allowed.</div>
+                                        <div id="password-error" class="field-error" data-error-for="password">Enter a strong password without spaces.</div>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="confirm-password" class="form-label">Confirm Password</label>
                                         <input type="password" class="form-control" id="confirm-password" name="confirm-password"
-                                               minlength="8" autocomplete="new-password" required>
-                                        <div class="field-error" data-error-for="confirm-password">Passwords must match.</div>
+                                               minlength="8" maxlength="64" aria-describedby="confirm-password-error"
+                                               autocomplete="new-password" required>
+                                        <div id="confirm-password-error" class="field-error" data-error-for="confirm-password">Passwords must match.</div>
                                     </div>
                                 </div>
 

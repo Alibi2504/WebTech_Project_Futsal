@@ -996,4 +996,3 @@ function initJQueryAssignment() {
   $(window).on("scroll resize", loadVisibleImages);
   loadVisibleImages();
 }
-

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -9,6 +9,7 @@
     <!-- Bootstrap 5.3 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
 </head>
 <body>
 
@@ -92,7 +93,7 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="card card-custom text-center p-4">
                             <div class="card-body">
-                                <div class="stat-number">12</div>
+                                <div class="stat-number js-counter" data-target="12">0</div>
                                 <h3 class="card-title mt-2">Teams</h3>
                                 <p class="card-text">4 teams in Gold League and 8 teams in Silver League.</p>
                             </div>
@@ -101,7 +102,7 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="card card-custom text-center p-4">
                             <div class="card-body">
-                                <div class="stat-number">2</div>
+                                <div class="stat-number js-counter" data-target="2">0</div>
                                 <h3 class="card-title mt-2">League Days</h3>
                                 <p class="card-text">Matches take place every Tuesday and Thursday.</p>
                             </div>
@@ -119,7 +120,7 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="card card-custom text-center p-4">
                             <div class="card-body">
-                                <div class="stat-number">1</div>
+                                <div class="stat-number js-counter" data-target="1">0</div>
                                 <h3 class="card-title mt-2">University Team</h3>
                                 <p class="card-text">AITU competes in university competitions across Kazakhstan.</p>
                             </div>
@@ -262,6 +263,48 @@
                             <p id="rating-message" aria-live="polite">No rating selected yet.</p>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-dark jquery-search-section" aria-labelledby="jquery-search-title">
+            <div class="container">
+                <div class="text-center mb-4">
+                    <span class="eyebrow">Assignment 6 · jQuery Search</span>
+                    <h2 id="jquery-search-title" class="mt-2">Find your place in AITU Futsal</h2>
+                    <p>Search teams, club roles and league information in real time.</p>
+                </div>
+                <div class="search-panel mx-auto">
+                    <label class="form-label" for="futsal-search">Search the club directory</label>
+                    <div class="search-input-wrap">
+                        <input class="form-control form-control-lg" id="futsal-search" type="search"
+                               placeholder="Try: goalkeeper, Gold League, media..." autocomplete="off"
+                               aria-controls="search-results" aria-autocomplete="list">
+                        <div id="search-suggestions" class="search-suggestions" role="listbox" hidden></div>
+                    </div>
+                    <p id="search-summary" class="search-summary" aria-live="polite">6 directory items</p>
+                    <div id="search-results" class="search-results">
+                        <article class="search-item" data-search="AITU United Gold League competitive team"><h3>AITU United</h3><p>Competitive team in the Gold League.</p></article>
+                        <article class="search-item" data-search="Byte Strikers Silver League student team"><h3>Byte Strikers</h3><p>Student team competing in the Silver League.</p></article>
+                        <article class="search-item" data-search="Goalkeeper player saves training"><h3>Goalkeeper</h3><p>Protect the goal and organize the defense.</p></article>
+                        <article class="search-item" data-search="Referee rules matches official"><h3>Referee</h3><p>Apply the rules and manage club matches.</p></article>
+                        <article class="search-item" data-search="Photographer media photos content"><h3>Photographer</h3><p>Capture match highlights for the community.</p></article>
+                        <article class="search-item" data-search="SMM media social content marketing"><h3>SMM Team</h3><p>Publish news, line-ups and match results.</p></article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section copy-section">
+            <div class="container text-center">
+                <span class="eyebrow">Share the schedule</span>
+                <h2 class="mt-2">Copy match information</h2>
+                <div class="copy-card mx-auto">
+                    <code id="schedule-snippet">AITU Futsal · Tuesday & Thursday · 18:00-20:00 · Cyber Arena</code>
+                    <button class="btn btn-aitu-primary copy-button" type="button" data-copy-target="#schedule-snippet" aria-label="Copy schedule">
+                        <span class="copy-icon">⧉</span> <span class="copy-label">Copy</span>
+                    </button>
+                    <span class="copy-tooltip" role="status">Copied to clipboard!</span>
                 </div>
             </div>
         </section>

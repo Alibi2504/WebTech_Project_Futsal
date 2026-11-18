@@ -362,6 +362,47 @@ function message(key, ...args) {
   return typeof value === "function" ? value(...args) : value;
 }
 
+
+Object.assign(staticTranslations, {
+  "Astana IT University · Cyber Arena": {
+    ru: "Astana IT University · Кибер Арена",
+    kk: "Astana IT University · Cyber Arena"
+  },
+  "Team members:": { ru: "Участники команды:", kk: "Топ мүшелері:" },
+  "© 2026 AITU Futsal": { ru: "© 2026 AITU Futsal", kk: "© 2026 AITU Futsal" },
+  "Astana IT University · Cyber Arena · © 2026": {
+    ru: "Astana IT University · Кибер Арена · © 2026",
+    kk: "Astana IT University · Cyber Arena · © 2026"
+  },
+  "External API · Astana": { ru: "Внешний API · Астана", kk: "Сыртқы API · Астана" },
+  "Matchday Weather": { ru: "Погода в день матча", kk: "Матч күніндегі ауа райы" },
+  "Refresh Weather": { ru: "Обновить погоду", kk: "Ауа райын жаңарту" },
+  "Loading live weather for Astana...": {
+    ru: "Загружаем текущую погоду в Астане...",
+    kk: "Астананың ағымдағы ауа райы жүктелуде..."
+  },
+  "Live data from Open-Meteo API": {
+    ru: "Актуальные данные из Open-Meteo API",
+    kk: "Open-Meteo API жүйесінен алынған ағымдағы деректер"
+  },
+  "Weather data could not be loaded. Please check your connection and try again.": {
+    ru: "Не удалось загрузить погоду. Проверьте подключение и попробуйте снова.",
+    kk: "Ауа райы деректерін жүктеу мүмкін болмады. Байланысты тексеріп, қайталап көріңіз."
+  },
+  "Clear sky": { ru: "Ясно", kk: "Ашық аспан" },
+  "Mainly clear": { ru: "Преимущественно ясно", kk: "Көбіне ашық" },
+  "Partly cloudy": { ru: "Переменная облачность", kk: "Ала бұлтты" },
+  "Overcast": { ru: "Пасмурно", kk: "Бұлтты" },
+  "Fog": { ru: "Туман", kk: "Тұман" },
+  "Rime fog": { ru: "Изморозевый туман", kk: "Қыраулы тұман" },
+  "Light drizzle": { ru: "Морось", kk: "Сіркіреме жаңбыр" },
+  "Rain": { ru: "Дождь", kk: "Жаңбыр" },
+  "Snow": { ru: "Снег", kk: "Қар" },
+  "Rain showers": { ru: "Ливень", kk: "Нөсер жаңбыр" },
+  "Thunderstorm": { ru: "Гроза", kk: "Найзағайлы жаңбыр" },
+  "Current conditions": { ru: "Текущие условия", kk: "Ағымдағы жағдай" }
+});
+
 document.addEventListener("DOMContentLoaded", () => {
   initClock();
   initThemeSwitcher();
@@ -606,6 +647,13 @@ function applyLanguage(language, announce = false) {
       : (staticTranslations[original]?.[currentLanguage] || original);
   });
 
+  document.querySelectorAll("[data-i18n]").forEach((element) => {
+    const original = element.dataset.i18n;
+    element.textContent = currentLanguage === "en"
+      ? original
+      : (staticTranslations[original]?.[currentLanguage] || original);
+  });
+
   document.querySelectorAll("[placeholder], [title], [aria-label]").forEach((element) => {
     ["placeholder", "title", "aria-label"].forEach((attribute) => {
       if (!element.hasAttribute(attribute)) return;
@@ -626,6 +674,7 @@ function applyLanguage(language, announce = false) {
 
   const selector = document.querySelector("#language-selector");
   if (selector) selector.value = currentLanguage;
+  if (typeof window.refreshWeatherTranslation === "function") window.refreshWeatherTranslation();
 
   document.querySelectorAll(".theme-toggle").forEach((button) => {
     const isDay = document.body.classList.contains("theme-day");
@@ -1101,27 +1150,64 @@ function initWeatherApi() {
   const status = card.querySelector("#weather-status");
   const result = card.querySelector("#weather-result");
   const refresh = card.querySelector("#weather-refresh");
-  const weatherLabels = { 0: "Clear sky", 1: "Mainly clear", 2: "Partly cloudy", 3: "Overcast", 45: "Fog", 48: "Rime fog", 51: "Light drizzle", 61: "Rain", 71: "Snow", 80: "Rain showers", 95: "Thunderstorm" };
+  const temperature = card.querySelector("#weather-temperature");
+  const description = card.querySelector("#weather-description");
+  const details = card.querySelector("#weather-details");
+
+  const weatherLabels = {
+    0: "Clear sky", 1: "Mainly clear", 2: "Partly cloudy", 3: "Overcast",
+    45: "Fog", 48: "Rime fog", 51: "Light drizzle", 61: "Rain",
+    71: "Snow", 80: "Rain showers", 95: "Thunderstorm"
+  };
+  const weatherData = { state: "loading", current: null };
+
+  const localized = (english) => {
+    if (currentLanguage === "en") return english;
+    return staticTranslations[english]?.[currentLanguage] || english;
+  };
+
+  const renderWeather = () => {
+    if (weatherData.state === "loading") {
+      status.textContent = localized("Loading live weather for Astana...");
+      result.hidden = true;
+    } else if (weatherData.state === "error") {
+      status.textContent = localized("Weather data could not be loaded. Please check your connection and try again.");
+      result.hidden = true;
+    } else if (weatherData.current) {
+      const current = weatherData.current;
+      temperature.textContent = `${Math.round(current.temperature_2m)}°C`;
+      description.textContent = localized(weatherLabels[current.weather_code] || "Current conditions");
+      const feelsLike = currentLanguage === "ru" ? "Ощущается как" : currentLanguage === "kk" ? "Сезіледі" : "Feels like";
+      const wind = currentLanguage === "ru" ? "Ветер" : currentLanguage === "kk" ? "Жел" : "Wind";
+      details.textContent = `${feelsLike} ${Math.round(current.apparent_temperature)}°C · ${wind} ${Math.round(current.wind_speed_10m)} km/h`;
+      status.textContent = localized("Live data from Open-Meteo API");
+      result.hidden = false;
+    }
+    refresh.textContent = localized("Refresh Weather");
+  };
+
+  // applyLanguage() calls this again so already-loaded weather updates immediately.
+  window.refreshWeatherTranslation = renderWeather;
+
   const loadWeather = async () => {
-    status.textContent = "Loading live weather for Astana...";
-    result.hidden = true;
+    weatherData.state = "loading";
+    renderWeather();
     refresh.disabled = true;
     try {
       const response = await fetch("https://api.open-meteo.com/v1/forecast?latitude=51.1694&longitude=71.4491&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m&timezone=Asia%2FAlmaty");
       if (!response.ok) throw new Error("Weather service unavailable");
       const data = await response.json();
-      const current = data.current;
-      card.querySelector("#weather-temperature").textContent = `${Math.round(current.temperature_2m)}°C`;
-      card.querySelector("#weather-description").textContent = weatherLabels[current.weather_code] || "Current conditions";
-      card.querySelector("#weather-details").textContent = `Feels like ${Math.round(current.apparent_temperature)}°C · Wind ${Math.round(current.wind_speed_10m)} km/h`;
-      status.textContent = "Live data from Open-Meteo API";
-      result.hidden = false;
+      weatherData.current = data.current;
+      weatherData.state = "success";
     } catch (error) {
-      status.textContent = "Weather data could not be loaded. Please check your connection and try again.";
+      weatherData.state = "error";
     } finally {
       refresh.disabled = false;
+      renderWeather();
     }
   };
+
   refresh.addEventListener("click", loadWeather);
+  renderWeather();
   loadWeather();
 }

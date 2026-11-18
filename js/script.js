@@ -374,12 +374,16 @@ document.addEventListener("DOMContentLoaded", () => {
   initAccordion();
   initContactModal();
   initJoinForm();
+  initLoginForm();
+  initProfilePage();
+  initWeatherApi();
 });
 
-$(document).ready(function () {
-  console.log("jQuery is ready!");
-  initJQueryAssignment();
-});
+if (window.jQuery) {
+  window.jQuery(document).ready(function () {
+    initJQueryAssignment();
+  });
+}
 
 function initClock() {
   const clock = document.querySelector("#current-date-time");
@@ -699,8 +703,16 @@ function initContactModal() {
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
-    if (!form.checkValidity()) {
-      form.classList.add("was-validated");
+    const name = form.querySelector("#contact-name");
+    const email = form.querySelector("#contact-email");
+    const contactMessage = form.querySelector("#contact-message");
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    [name, email, contactMessage].forEach((field) => field.classList.remove("is-invalid"));
+    let valid = true;
+    if (name.value.trim().length < 2) { name.classList.add("is-invalid"); valid = false; }
+    if (!emailPattern.test(email.value.trim())) { email.classList.add("is-invalid"); valid = false; }
+    if (contactMessage.value.trim().length < 10) { contactMessage.classList.add("is-invalid"); valid = false; }
+    if (!valid) {
       showSubmissionResult(message("Please complete all fields correctly."), "error");
       return;
     }
@@ -722,6 +734,7 @@ function initJoinForm() {
     email: form.querySelector("#email"),
     year: form.querySelector("#year"),
     message: form.querySelector("#message"),
+    phone: form.querySelector("#phone"),
     password: form.querySelector("#password"),
     confirmPassword: form.querySelector("#confirm-password")
   };
@@ -781,6 +794,12 @@ function initJoinForm() {
       valid = false;
     } else setValid(fields.email);
 
+    const phoneDigits = fields.phone.value.replace(/\D/g, "");
+    if (!/^(7|8)\d{10}$/.test(phoneDigits)) {
+      setError(fields.phone, "Enter 11 digits, for example +7 701 234 56 78.");
+      valid = false;
+    } else setValid(fields.phone);
+
     if (!fields.year.value) {
       setError(fields.year, message("Select your year of study."));
       valid = false;
@@ -813,8 +832,20 @@ function initJoinForm() {
       form.querySelector(".is-invalid")?.focus();
       return;
     }
-    status.textContent = message("Application validated successfully!");
+    const user = {
+      name: fields.name.value.trim(),
+      email: fields.email.value.trim().toLowerCase(),
+      phone: fields.phone.value.trim(),
+      year: fields.year.value,
+      position: form.querySelector('input[name="position"]:checked').value,
+      about: fields.message.value.trim(),
+      password: fields.password.value
+    };
+    window.localStorage.setItem("aitu-futsal-user", JSON.stringify(user));
+    window.localStorage.setItem("aitu-futsal-session", user.email);
+    status.textContent = "Account created. Opening your profile...";
     status.className = "form-status success";
+    window.setTimeout(() => { window.location.href = "profile.html"; }, 650);
   });
 
   [fields.password, fields.confirmPassword].forEach((field) => {
@@ -956,7 +987,7 @@ function initJQueryAssignment() {
         $button.find(".submit-label").html(`<span class="submit-spinner" aria-hidden="true"></span> ${message("Please wait...")}`);
         window.setTimeout(() => {
           $button.prop("disabled", false).removeClass("is-loading");
-          $button.find(".submit-label").text(message("Send Application"));
+          $button.find(".submit-label").text("Create Account");
           showToast(message("Application submitted successfully!"));
         }, 1500);
       }
@@ -995,4 +1026,102 @@ function initJQueryAssignment() {
   };
   $(window).on("scroll resize", loadVisibleImages);
   loadVisibleImages();
+}
+
+function readStoredUser() {
+  try {
+    return JSON.parse(window.localStorage.getItem("aitu-futsal-user") || "null");
+  } catch (error) {
+    return null;
+  }
+}
+
+function initLoginForm() {
+  const form = document.querySelector("#login-form");
+  if (!form) return;
+  const email = form.querySelector("#login-email");
+  const password = form.querySelector("#login-password");
+  const status = form.querySelector("#login-status");
+  const showError = (field, text) => {
+    field.classList.add("is-invalid");
+    const target = form.querySelector(`[data-error-for="${field.id}"]`);
+    if (target) target.textContent = text;
+  };
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    [email, password].forEach((field) => field.classList.remove("is-invalid"));
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let valid = true;
+    if (!emailPattern.test(email.value.trim())) { showError(email, "Enter a valid email address."); valid = false; }
+    if (password.value.length < 8) { showError(password, "Password must contain at least 8 characters."); valid = false; }
+    if (!valid) { status.textContent = "Please correct the highlighted fields."; status.className = "form-status error"; return; }
+    const user = readStoredUser();
+    if (!user || user.email !== email.value.trim().toLowerCase() || user.password !== password.value) {
+      status.textContent = "Email or password is incorrect. Create an account first if needed.";
+      status.className = "form-status error";
+      return;
+    }
+    window.localStorage.setItem("aitu-futsal-session", user.email);
+    status.textContent = "Login successful. Opening your profile...";
+    status.className = "form-status success";
+    window.setTimeout(() => { window.location.href = "profile.html"; }, 500);
+  });
+}
+
+function initProfilePage() {
+  const profile = document.querySelector("#profile-details");
+  if (!profile) return;
+  const user = readStoredUser();
+  const session = window.localStorage.getItem("aitu-futsal-session");
+  if (!user || session !== user.email) {
+    window.location.replace("login.html");
+    return;
+  }
+  const values = {
+    "profile-name": user.name,
+    "profile-email": user.email,
+    "profile-phone": user.phone,
+    "profile-year": user.year,
+    "profile-position": user.position,
+    "profile-about": user.about
+  };
+  Object.entries(values).forEach(([id, value]) => {
+    const element = document.getElementById(id);
+    if (element) element.textContent = value || "Not provided";
+  });
+  document.querySelector("#logout-button")?.addEventListener("click", () => {
+    window.localStorage.removeItem("aitu-futsal-session");
+    window.location.href = "login.html";
+  });
+}
+
+function initWeatherApi() {
+  const card = document.querySelector("#weather-card");
+  if (!card) return;
+  const status = card.querySelector("#weather-status");
+  const result = card.querySelector("#weather-result");
+  const refresh = card.querySelector("#weather-refresh");
+  const weatherLabels = { 0: "Clear sky", 1: "Mainly clear", 2: "Partly cloudy", 3: "Overcast", 45: "Fog", 48: "Rime fog", 51: "Light drizzle", 61: "Rain", 71: "Snow", 80: "Rain showers", 95: "Thunderstorm" };
+  const loadWeather = async () => {
+    status.textContent = "Loading live weather for Astana...";
+    result.hidden = true;
+    refresh.disabled = true;
+    try {
+      const response = await fetch("https://api.open-meteo.com/v1/forecast?latitude=51.1694&longitude=71.4491&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m&timezone=Asia%2FAlmaty");
+      if (!response.ok) throw new Error("Weather service unavailable");
+      const data = await response.json();
+      const current = data.current;
+      card.querySelector("#weather-temperature").textContent = `${Math.round(current.temperature_2m)}°C`;
+      card.querySelector("#weather-description").textContent = weatherLabels[current.weather_code] || "Current conditions";
+      card.querySelector("#weather-details").textContent = `Feels like ${Math.round(current.apparent_temperature)}°C · Wind ${Math.round(current.wind_speed_10m)} km/h`;
+      status.textContent = "Live data from Open-Meteo API";
+      result.hidden = false;
+    } catch (error) {
+      status.textContent = "Weather data could not be loaded. Please check your connection and try again.";
+    } finally {
+      refresh.disabled = false;
+    }
+  };
+  refresh.addEventListener("click", loadWeather);
+  loadWeather();
 }

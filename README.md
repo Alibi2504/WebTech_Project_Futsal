@@ -1,4 +1,3 @@
-
 # AITU FUTSAL CLUB — Final Project
 
 A responsive multi-page website developed for the Web Technologies course at Astana IT University.

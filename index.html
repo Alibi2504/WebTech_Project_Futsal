@@ -333,6 +333,22 @@
             </div>
         </section>
 
+        <section class="section" aria-labelledby="weather-title">
+            <div class="container">
+                <div id="weather-card" class="card card-custom weather-card p-4 p-lg-5">
+                    <span class="eyebrow">External API · Astana</span>
+                    <h2 id="weather-title" class="mt-2">Matchday Weather</h2>
+                    <p id="weather-status" aria-live="polite">Loading live weather for Astana...</p>
+                    <div id="weather-result" hidden>
+                        <div id="weather-temperature" class="weather-temperature">--°C</div>
+                        <p id="weather-description" class="weather-description mt-2 mb-1"></p>
+                        <p id="weather-details"></p>
+                    </div>
+                    <button id="weather-refresh" class="btn btn-aitu-outline mx-auto mt-2" type="button">Refresh Weather</button>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <div id="contact-modal" class="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title" hidden>
@@ -344,17 +360,17 @@
             <form id="contact-form" novalidate>
                 <div class="mb-3">
                     <label class="form-label" for="contact-name">Full Name</label>
-                    <input class="form-control" id="contact-name" type="text" minlength="2" required>
+                    <input class="form-control" id="contact-name" type="text">
                     <div class="invalid-feedback">Please enter your name.</div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="contact-email">Email Address</label>
-                    <input class="form-control" id="contact-email" type="email" required>
+                    <input class="form-control" id="contact-email" type="text" inputmode="email">
                     <div class="invalid-feedback">Please enter a valid email.</div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="contact-message">Message</label>
-                    <textarea class="form-control" id="contact-message" rows="4" minlength="10" required></textarea>
+                    <textarea class="form-control" id="contact-message" rows="4"></textarea>
                     <div class="invalid-feedback">Please enter at least 10 characters.</div>
                 </div>
                 <button class="btn btn-aitu-primary w-100" type="submit">Send Message</button>

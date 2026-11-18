@@ -403,6 +403,67 @@ Object.assign(staticTranslations, {
   "Current conditions": { ru: "Текущие условия", kk: "Ағымдағы жағдай" }
 });
 
+// Additional translations for the Login and Profile pages.
+Object.assign(staticTranslations, {
+  "Member access": { ru: "Доступ участника", kk: "Қатысушыға кіру" },
+  "Sign Up": { ru: "Регистрация", kk: "Тіркелу" },
+  "Log In | AITU Futsal": { ru: "Вход | AITU Futsal", kk: "Кіру | AITU Futsal" },
+  "Profile | AITU Futsal": { ru: "Профиль | AITU Futsal", kk: "Профиль | AITU Futsal" },
+  "Log In": { ru: "Войти", kk: "Кіру" },
+  "Open your saved AITU Futsal profile.": {
+    ru: "Откройте свой сохранённый профиль AITU Futsal.",
+    kk: "Сақталған AITU Futsal профиліңізді ашыңыз."
+  },
+  "Welcome back": { ru: "С возвращением!", kk: "Қош келдіңіз!" },
+  "Use the account created on the Sign Up page.": {
+    ru: "Используйте аккаунт, созданный на странице регистрации.",
+    kk: "Тіркелу бетінде жасалған аккаунтты пайдаланыңыз."
+  },
+  "Email Address": { ru: "Электронная почта", kk: "Электрондық пошта" },
+  "Enter a valid email address.": {
+    ru: "Введите корректный адрес электронной почты.",
+    kk: "Дұрыс электрондық пошта мекенжайын енгізіңіз."
+  },
+  "Password": { ru: "Пароль", kk: "Құпиясөз" },
+  "Enter your password.": { ru: "Введите пароль.", kk: "Құпиясөзіңізді енгізіңіз." },
+  "No account?": { ru: "Нет аккаунта?", kk: "Аккаунтыңыз жоқ па?" },
+  "Sign up": { ru: "Зарегистрироваться", kk: "Тіркелу" },
+  "Member area": { ru: "Личный кабинет", kk: "Жеке кабинет" },
+  "Your Profile": { ru: "Ваш профиль", kk: "Сіздің профиліңіз" },
+  "Your locally saved registration information.": {
+    ru: "Ваша регистрационная информация, сохранённая в браузере.",
+    kk: "Браузерде сақталған тіркеу ақпаратыңыз."
+  },
+  "AITU Futsal member": { ru: "Участник AITU Futsal", kk: "AITU Futsal қатысушысы" },
+  "Loading...": { ru: "Загрузка...", kk: "Жүктелуде..." },
+  "Log Out": { ru: "Выйти", kk: "Шығу" },
+  "Email": { ru: "Электронная почта", kk: "Электрондық пошта" },
+  "Phone": { ru: "Телефон", kk: "Телефон" },
+  "Study year": { ru: "Курс обучения", kk: "Оқу курсы" },
+  "Position": { ru: "Позиция", kk: "Ойын позициясы" },
+  "About": { ru: "О себе", kk: "Өзі туралы" },
+  "Explore Upcoming Events": { ru: "Посмотреть предстоящие события", kk: "Алдағы іс-шараларды көру" },
+  "Not provided": { ru: "Не указано", kk: "Көрсетілмеген" },
+  "Profile": { ru: "Профиль", kk: "Профиль" },
+  "Password must contain at least 8 characters.": {
+    ru: "Пароль должен содержать минимум 8 символов.",
+    kk: "Құпиясөз кемінде 8 таңбадан тұруы керек."
+  },
+  "Please correct the highlighted fields.": {
+    ru: "Исправьте выделенные поля.",
+    kk: "Белгіленген өрістерді түзетіңіз."
+  },
+  "Email or password is incorrect. Create an account first if needed.": {
+    ru: "Неверная почта или пароль. При необходимости сначала зарегистрируйтесь.",
+    kk: "Электрондық пошта немесе құпиясөз қате. Қажет болса, алдымен тіркеліңіз."
+  },
+  "Login successful. Opening your profile...": {
+    ru: "Вход выполнен. Открываем ваш профиль...",
+    kk: "Кіру сәтті аяқталды. Профиліңіз ашылуда..."
+  }
+});
+
+
 document.addEventListener("DOMContentLoaded", () => {
   initClock();
   initThemeSwitcher();
@@ -1088,30 +1149,51 @@ function readStoredUser() {
 function initLoginForm() {
   const form = document.querySelector("#login-form");
   if (!form) return;
+
   const email = form.querySelector("#login-email");
   const password = form.querySelector("#login-password");
   const status = form.querySelector("#login-status");
-  const showError = (field, text) => {
+
+  const localized = (english) => currentLanguage === "en"
+    ? english
+    : (staticTranslations[english]?.[currentLanguage] || english);
+
+  const showError = (field, englishText) => {
     field.classList.add("is-invalid");
     const target = form.querySelector(`[data-error-for="${field.id}"]`);
-    if (target) target.textContent = text;
+    if (target) target.textContent = localized(englishText);
   };
+
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     [email, password].forEach((field) => field.classList.remove("is-invalid"));
+
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     let valid = true;
-    if (!emailPattern.test(email.value.trim())) { showError(email, "Enter a valid email address."); valid = false; }
-    if (password.value.length < 8) { showError(password, "Password must contain at least 8 characters."); valid = false; }
-    if (!valid) { status.textContent = "Please correct the highlighted fields."; status.className = "form-status error"; return; }
-    const user = readStoredUser();
-    if (!user || user.email !== email.value.trim().toLowerCase() || user.password !== password.value) {
-      status.textContent = "Email or password is incorrect. Create an account first if needed.";
+
+    if (!emailPattern.test(email.value.trim())) {
+      showError(email, "Enter a valid email address.");
+      valid = false;
+    }
+    if (password.value.length < 8) {
+      showError(password, "Password must contain at least 8 characters.");
+      valid = false;
+    }
+    if (!valid) {
+      status.textContent = localized("Please correct the highlighted fields.");
       status.className = "form-status error";
       return;
     }
+
+    const user = readStoredUser();
+    if (!user || user.email !== email.value.trim().toLowerCase() || user.password !== password.value) {
+      status.textContent = localized("Email or password is incorrect. Create an account first if needed.");
+      status.className = "form-status error";
+      return;
+    }
+
     window.localStorage.setItem("aitu-futsal-session", user.email);
-    status.textContent = "Login successful. Opening your profile...";
+    status.textContent = localized("Login successful. Opening your profile...");
     status.className = "form-status success";
     window.setTimeout(() => { window.location.href = "profile.html"; }, 500);
   });
@@ -1120,12 +1202,18 @@ function initLoginForm() {
 function initProfilePage() {
   const profile = document.querySelector("#profile-details");
   if (!profile) return;
+
   const user = readStoredUser();
   const session = window.localStorage.getItem("aitu-futsal-session");
   if (!user || session !== user.email) {
     window.location.replace("login.html");
     return;
   }
+
+  const notProvided = currentLanguage === "ru"
+    ? "Не указано"
+    : currentLanguage === "kk" ? "Көрсетілмеген" : "Not provided";
+
   const values = {
     "profile-name": user.name,
     "profile-email": user.email,
@@ -1134,10 +1222,12 @@ function initProfilePage() {
     "profile-position": user.position,
     "profile-about": user.about
   };
+
   Object.entries(values).forEach(([id, value]) => {
     const element = document.getElementById(id);
-    if (element) element.textContent = value || "Not provided";
+    if (element) element.textContent = value || notProvided;
   });
+
   document.querySelector("#logout-button")?.addEventListener("click", () => {
     window.localStorage.removeItem("aitu-futsal-session");
     window.location.href = "login.html";

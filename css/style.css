@@ -753,3 +753,18 @@ body.theme-day .profile-field dd, body.theme-day .weather-temperature { color: #
   .interactive-panel .row { margin-inline: 0; }
   .interactive-panel .row > * { padding-inline: 0; }
 }
+
+
+/* Compact language selector on authentication pages */
+.language-nav-item {
+    display: flex;
+    align-items: center;
+    padding: 0.25rem 0.4rem;
+}
+.language-nav-item .form-select {
+    min-width: 66px;
+    width: auto;
+    color: var(--clr-text, inherit);
+    background-color: var(--clr-card, transparent);
+    border-color: var(--clr-border, currentColor);
+}
